@@ -1,0 +1,17 @@
+# Go
+*.exe
+*.out
+go.sum
+
+# Env
+.env
+
+# Generated
+*.pb.go
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
