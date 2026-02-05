@@ -1,14 +1,12 @@
 package main
 
 import (
-	"context"
 	"log/slog"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
@@ -120,15 +118,11 @@ func main() {
 
 	slog.Info("shutting down server...")
 
-	// Create shutdown context with timeout
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
 	// Gracefully stop gRPC server
 	grpcServer.GracefulStop()
 
 	// Close database connection
 	db.Close()
 
-	slog.Info("server stopped", slog.String("context", ctx.Err().Error()))
+	slog.Info("server stopped gracefully")
 }
